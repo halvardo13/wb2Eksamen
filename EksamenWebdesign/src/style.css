@@ -1,0 +1,59 @@
+body {
+  /*Remove margin*/
+  margin: 0;
+  color: white;
+  position: absolute;
+  width: 100%;
+}
+
+h1 {
+  color: white;
+  font-size: 64px;
+}
+p {
+  font-size: 32px;
+}
+
+button {
+  font-size: large;
+
+}
+
+.contain {
+  margin-left: 32px;
+}
+
+/*Canvas class for rendering scene*/
+.render3d {
+  /*Make sure canvas is always a background*/
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+header {
+  display: flex;
+  justify-content: center;
+}
+
+
+.progressBarContainer {
+  width: 320px;
+  height: 16px;
+  background: grey;
+  border-radius: 32px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.progressBar {
+  width: 0px;
+  height: 16px;
+  background: white;
+  border-radius: 32px;
+  position: relative;
+
+}
