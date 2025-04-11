@@ -1,11 +1,16 @@
+//Disable UI for explore mode
+document.getElementById("exit_exploreForestID").disabled = true;
+document.getElementById("costumMouseCourser").style.opacity = "0";
+
+//Make sure HTMML loads from top. (refresh without this causes user to stay where they refresed)
+//window.scrollTo(0, 0);
+
+//Interpolation for smooth movement
 function lerp(x, y, percent) {
-	//Interpolation for smooth movement
 	return x+(y-x)*percent;
 }
-//Make sure HTMML loads from top. (refresh without this causes user to stay where they refresed)
-window.scrollTo(0, 0);
 
-//Import three.js library, located in node_modules
+//Import three.js library
 import * as THREE from "three";
 //Import loader for obj models and materials
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -16,7 +21,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 console.log(scene);
 scene.background = new THREE.Color(0x276468);
-//scene.fog = new THREE.Fog(0xcccccc, 15, 20);
+scene.fog = new THREE.Fog(0xcccccc, 15, 75);
 
 //Raycaster for mouse interactivity
 const raycast = new THREE.Raycaster();
@@ -34,7 +39,7 @@ scene.add(directionalLight);
 const helperdir = new THREE.DirectionalLightHelper(directionalLight, 2);
 scene.add( helperdir );
 
-//Animation path 
+//Animation path //https://threejs.org/docs/?q=CatmullRomCurve3#api/en/extras/core/Curve
 const cameraCruve = new THREE.CatmullRomCurve3( [
 	new THREE.Vector3( 5, 5, -10),
 	new THREE.Vector3( -5, 7, -10),
@@ -93,16 +98,38 @@ let globalGameSetting = 0;
 //Lerp speeds
 let lerpAmountSpd = 0.02;
 let lerpScrollBar = 0.1;
-//Camera zoom animate
-let zoomCamera = 0.5;
-let zoomTo = 1.5;
 //Scrollbar
 let scrollBarW = 0;
 //Target Position in animation
 let cameraPositionFromCurve = 0;
-let cameraLookAtFromCruve = 0;
-//
+//Camera offset positions
 let cameraOffset = new THREE.Vector3();
+//Circle Mouse
+const circleMouse = document.getElementById("costumMouseCourser");
+
+
+
+/*Functions for gameloop*/
+
+//Handles scrolling camera along curve + camera offset based on mouse
+function UpdateScrollingAndCamera() {
+	//Animate camera along curve based on scroll position
+	cameraPositionFromCurve = cameraCruve.getPoint(yPosScroll);
+	camera.position.copy(cameraPositionFromCurve);
+	//
+	scrollBarW = lerp(scrollBarW, 320*yPosScroll, lerpScrollBar);
+	document.getElementById("progressScroll").style.width = scrollBarW+"px";
+	//Offset based on mouse position
+	cameraOffset.x = lerp(cameraOffset.x, -pointer.x, 0.03);
+	cameraOffset.y = lerp(cameraOffset.y, pointer.y, 0.03);
+
+	//Set final camera position
+	camera.lookAt(cameraOffset);
+	camera.updateMatrixWorld();
+}
+
+
+
 
 
 
@@ -117,27 +144,12 @@ function gameLoop() {
 	
 
 	}
-	//Update scrolling and camera only when veiwing HTML
-	if (globalGameSetting == 0) {
-		//Camera movement on scroll
-		//zoomTo = 2-(zoomCamera*yPosScroll);
-		//camera.zoom = lerp(camera.zoom, zoomTo, lerpAmountSpd);
-		//camera.updateProjectionMatrix();
-		//Animate camera along curve based on scroll position
-		//https://threejs.org/docs/?q=CatmullRomCurve3#api/en/extras/core/Curve
-		cameraPositionFromCurve = cameraCruve.getPoint(yPosScroll);
-		//cameraLookAtFromCruve = cameraCruve.getTangent(yPosScroll);
-		camera.position.copy(cameraPositionFromCurve);
-		//
-		scrollBarW = lerp(scrollBarW, 320*yPosScroll, lerpScrollBar);
-		document.getElementById("progressScroll").style.width = scrollBarW+"px";
-		//Offset based on mouse position
-		cameraOffset.x = lerp(cameraOffset.x, -pointer.x, 0.1);
-		cameraOffset.y = lerp(cameraOffset.y, pointer.y, 0.1);
 
-		//Set final camera position
-		camera.lookAt(cameraOffset);
-		camera.updateMatrixWorld();
+
+
+	if (globalGameSetting == 0) {
+		//Update scrolling and camera only when veiwing HTML
+		UpdateScrollingAndCamera();
 	}
 	else {
 		//In explore mode
@@ -169,6 +181,8 @@ function gameLoop() {
 
 //Keep mouse position updated
 function UpdateMousePos(e) {
+	circleMouse.style.left = e.clientX+"px";
+	circleMouse.style.top = e.clientY+"px";
 	/*https://threejs.org/docs/index.html?q=raycast#api/en/core/Raycaster*/
 	pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
 	pointer.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -183,6 +197,7 @@ function UpdateUserScroll() {
 	//console.log(yPosScroll);
 }
 document.addEventListener('scroll', UpdateUserScroll);
+
 
 //Run the Game Loop
 gameLoop();
@@ -200,16 +215,28 @@ function buttonTest() {
 	isDay = !isDay;
 }
 document.getElementById("testButtonID").addEventListener("click", buttonTest);
-//Enable exlplore and add listener
-function exploreForest() {
-	document.getElementById("renderID").style.zIndex = "1";
-	globalGameSetting = 1;
+//Toggle explore mode
+function toggleForest() {
+	if (globalGameSetting == 0) {
+		//Put canvas over HTML layer
+		document.getElementById("renderID").style.zIndex = "1";
+		//Enable explore UI
+		document.getElementById("exploreUI_ID").style.opacity = "1";
+		document.getElementById("exit_exploreForestID").disabled = false;
+		document.getElementById("costumMouseCourser").style.opacity = "1";
+		document.getElementById("bodyID").style.cursor = "none";
+		globalGameSetting = 1;
+	}
+	else {
+		//Put canvas under HTML layer
+		document.getElementById("renderID").style.zIndex = "-1";
+		//Disable explore UI
+		document.getElementById("exploreUI_ID").style.opacity = "0";
+		document.getElementById("exit_exploreForestID").disabled = true;
+		document.getElementById("costumMouseCourser").style.opacity = "0";
+		document.getElementById("bodyID").style.cursor = "auto";
+		globalGameSetting = 0;
+	}
 }
-document.getElementById("exploreForestID").addEventListener("click", exploreForest);
-//Disable exlplore and add listener
-function exitExploreForest() {
-	document.getElementById("renderID").style.zIndex = "-1";
-	globalGameSetting = 0;
-}
-document.getElementById("exit_exploreForestID").addEventListener("click", exitExploreForest);
-
+document.getElementById("exploreForestID").addEventListener("click", toggleForest);
+document.getElementById("exit_exploreForestID").addEventListener("click", toggleForest);

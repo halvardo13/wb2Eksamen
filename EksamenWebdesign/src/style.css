@@ -14,7 +14,24 @@ body {
   scroll-behavior: smooth;
 }
 
+#costumMouseCourser {
+  /*Courser for explore*/
+  pointer-events: none;
+  /*CSS for circle mouse based on: https://dev.to/mattmarquise/how-to-create-a-custom-circular-cursor-for-your-website-4i7p*/
+  position: fixed;
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: 50%;
+  top: var(--y, 0);
+  left: var(--x, 0);
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition: transform 0.2s;
+}
+
 .exploreUI {
+  opacity: 0;
   z-index: 2;
   position: fixed;
   -webkit-user-select: none;
@@ -86,4 +103,19 @@ header {
 /*Scroll snap per section*/
 .snapto {
   scroll-snap-align: start;
+}
+
+.baseCard {
+  /*Color*/
+  background-color: white;
+  color: black;
+  /*Border*/
+  border: 2px solid white;
+  border-radius: 6px;
+  /*Shadow*/
+  box-shadow: 0px 6px 48px 9px rgb(0, 0, 0);
+  /**/
+  padding: 16px;
+  width: 480px;
+  height: 300px;
 }/*# sourceMappingURL=style.css.map */

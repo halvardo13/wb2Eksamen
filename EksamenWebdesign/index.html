@@ -7,7 +7,9 @@
     <title>My3D</title>
     <link rel="stylesheet" href="./src/style.css">
   </head>
-  <body>
+  <body id="bodyID">
+    <!--Courser-->
+    <div id="costumMouseCourser"></div>
     <!--Canvas from 3d scene-->
     <canvas class="render3d" id="renderID"></canvas>
     <!--Header-->
@@ -18,10 +20,9 @@
       </div>
     </header>
     <!--UI when exploring 3d-->
-    <div class="exploreUI">
+    <div id="exploreUI_ID" class="exploreUI">
       <button id="exit_exploreForestID">Go back</button>
     </div>
-
 
 
     <div class="scrollSnapToContainer">
@@ -32,10 +33,16 @@
       <section class="landing_page snapto">
         <h1>Forest2</h1>
         <p>Forest</p>
+        <button id="exploreForestID">Explore</button>
       </section>
       <section class="landing_page snapto">
         <h1>Forest3</h1>
-        <p>Forest</p>
+        <div class="baseCard">
+          <p>hello</p>
+          <button id="testButtonID">Change day/night</button>
+        </div>
+
+        
       </section>
       <section class="landing_page snapto">
         <h1>Forest4</h1>
@@ -45,7 +52,7 @@
         <h1>Forest5</h1>
         <p>Forest</p>
 
-        <button id="exploreForestID">Explore</button>
+        
       </section>
 
 
@@ -60,7 +67,7 @@
     
     
     
-    <button id="testButtonID">Change day/night</button>
+    
 
 
 
