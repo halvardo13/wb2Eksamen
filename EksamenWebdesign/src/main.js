@@ -34,14 +34,28 @@ scene.add(directionalLight);
 const helperdir = new THREE.DirectionalLightHelper(directionalLight, 2);
 scene.add( helperdir );
 
-//Load Ground
-const loader = new GLTFLoader();
+//Animation path 
+const cameraCruve = new THREE.CatmullRomCurve3( [
+	new THREE.Vector3( 5, 5, -10),
+	new THREE.Vector3( -5, 7, -10),
+	new THREE.Vector3( -10, 10, -15),
+	new THREE.Vector3( -10, 15, 15),
 
+]);
+const points = cameraCruve.getPoints( 50 );
+const geometry = new THREE.BufferGeometry().setFromPoints( points );
+const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+const curveObject = new THREE.Line( geometry, material );
+scene.add(curveObject);
+
+
+//Loader for 3D Objects
+const loader = new GLTFLoader();
 //Laod Main Forest Scene
 let oForestScene = -4;
 loader.load(
 	//Link to 3d model
-	'../Models_3d/forestScene_wip.glb',
+	'../Models_3d/forestSceneBIG.glb',
 	//Called upon load
 	function (gltf) {
 		//Save refrence
@@ -53,8 +67,8 @@ loader.load(
 
 //Create Camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 300);
-//Position camera
-camera.position.set(5, 5, -5);
+//const cameraHelper = new THREE.CameraHelper(camera);
+//scene.add(cameraHelper);
 
 //Get the canvas and apply to renderer
 const canvas = document.querySelector(".render3d");
@@ -73,17 +87,24 @@ const gridHelp = new THREE.GridHelper(16, 16);
 gridHelp.position.y -= 0.5;
 scene.add(gridHelp);
 
+//If user is veiwing HTML or exploring 3dScene
+let globalGameSetting = 0;
+
 //Lerp speeds
 let lerpAmountSpd = 0.02;
 let lerpScrollBar = 0.1;
 //Camera zoom animate
 let zoomCamera = 0.5;
-let zoomTo = 2;
+let zoomTo = 1.5;
 //Scrollbar
 let scrollBarW = 0;
 //Target Position in animation
-let cameraTargetZ = 15;
-let cameraTargetY = 5;
+let cameraPositionFromCurve = 0;
+let cameraLookAtFromCruve = 0;
+//
+let cameraOffset = new THREE.Vector3();
+
+
 
 
 //Game Loop
@@ -92,38 +113,59 @@ function gameLoop() {
 	//Check for forest scene (if forest scene is loaded, all other objects should be loaded aswell)
 	if (oForestScene != -4) {
 		//Rotate forest scene on scrolling
-		oForestScene.scene.rotation.y = lerp(oForestScene.scene.rotation.y, 1.5*yPosScroll, lerpAmountSpd);
+		//oForestScene.scene.rotation.y = lerp(oForestScene.scene.rotation.y, 1.5*yPosScroll, lerpAmountSpd);
 	
 
 	}
-	//Camera movement on scroll
-	zoomTo = 1.5-(zoomCamera*yPosScroll);
-	camera.zoom = lerp(camera.zoom, zoomTo, lerpAmountSpd);
-	camera.updateProjectionMatrix();
-	//Animate camera backwards and slightly up
-	camera.position.z = 5+(cameraTargetZ*yPosScroll);
-	camera.position.y = 5+(cameraTargetY*yPosScroll);
-	//Update scrollbar
-	scrollBarW = lerp(scrollBarW, 320*yPosScroll, lerpScrollBar);
-	document.getElementById("progressScroll").style.width = scrollBarW+"px";
+	//Update scrolling and camera only when veiwing HTML
+	if (globalGameSetting == 0) {
+		//Camera movement on scroll
+		//zoomTo = 2-(zoomCamera*yPosScroll);
+		//camera.zoom = lerp(camera.zoom, zoomTo, lerpAmountSpd);
+		//camera.updateProjectionMatrix();
+		//Animate camera along curve based on scroll position
+		//https://threejs.org/docs/?q=CatmullRomCurve3#api/en/extras/core/Curve
+		cameraPositionFromCurve = cameraCruve.getPoint(yPosScroll);
+		//cameraLookAtFromCruve = cameraCruve.getTangent(yPosScroll);
+		camera.position.copy(cameraPositionFromCurve);
+		//
+		scrollBarW = lerp(scrollBarW, 320*yPosScroll, lerpScrollBar);
+		document.getElementById("progressScroll").style.width = scrollBarW+"px";
+		//Offset based on mouse position
+		cameraOffset.x = lerp(cameraOffset.x, -pointer.x, 0.1);
+		cameraOffset.y = lerp(cameraOffset.y, pointer.y, 0.1);
 
+		//Set final camera position
+		camera.lookAt(cameraOffset);
+		camera.updateMatrixWorld();
+	}
+	else {
+		//In explore mode
+		//Update orbit controls
+		controls.update();
 
+	}
 	//Raycaster 
-	raycast.setFromCamera(pointer, camera);
-	const intersects = raycast.intersectObjects(scene.children);
-	if (intersects.length > 0) {
+	//raycast.setFromCamera(pointer, camera);
+	//const intersects = raycast.intersectObjects(scene.children);
+	//if (intersects.length > 0) {
 		/*
 		let objFound = intersects[0];
 		objFound.highlight(true);
 		console.log(objFound);
 		*/
-	}
+	//}
 	
-	//Update controls
-	controls.update();
+
+
+
+
 	//Render Final 3D Scene
 	renderer.render(scene, camera);
 }
+////////End of game loop
+
+
 
 //Keep mouse position updated
 function UpdateMousePos(e) {
@@ -148,7 +190,8 @@ gameLoop();
 //Funtions called in HTML
 let isDay = true;
 
-//
+//Funtions called from user input
+//Test button 
 function buttonTest() {
 	if (isDay == false) {
 		scene.background = new THREE.Color(0x276468);
@@ -157,3 +200,16 @@ function buttonTest() {
 	isDay = !isDay;
 }
 document.getElementById("testButtonID").addEventListener("click", buttonTest);
+//Enable exlplore and add listener
+function exploreForest() {
+	document.getElementById("renderID").style.zIndex = "1";
+	globalGameSetting = 1;
+}
+document.getElementById("exploreForestID").addEventListener("click", exploreForest);
+//Disable exlplore and add listener
+function exitExploreForest() {
+	document.getElementById("renderID").style.zIndex = "-1";
+	globalGameSetting = 0;
+}
+document.getElementById("exit_exploreForestID").addEventListener("click", exitExploreForest);
+

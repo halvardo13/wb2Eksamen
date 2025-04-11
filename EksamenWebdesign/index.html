@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="./src/style.css">
   </head>
   <body>
-    <!--Create Canvas-->
-    <canvas class="render3d"></canvas>
+    <!--Canvas from 3d scene-->
+    <canvas class="render3d" id="renderID"></canvas>
     <!--Header-->
     <header>
       <!--Show Scroll Progress-->
@@ -17,83 +17,49 @@
         <div class="progressBar" id="progressScroll"></div>
       </div>
     </header>
-
-
-
-
-
-
-
-
-
-
-
-    <div class="contain">
-      <h1>Header 1</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 2</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 3</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 4</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 5</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 6</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 7</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 8</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 9</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 10</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 1</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 2</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 3</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 4</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 5</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 6</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 7</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 8</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 9</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 10</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 1</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 2</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 3</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 4</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 5</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 6</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 7</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 8</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 9</h1>
-      <p>Paragraph text more text and more text</p>
-      <h1>Header 10</h1>
-      <p>Paragraph text more text and more text</p>
+    <!--UI when exploring 3d-->
+    <div class="exploreUI">
+      <button id="exit_exploreForestID">Go back</button>
     </div>
+
+
+
+    <div class="scrollSnapToContainer">
+      <section class="landing_page snapto">
+        <h1>Forest</h1>
+        <p>Forest</p>
+      </section>
+      <section class="landing_page snapto">
+        <h1>Forest2</h1>
+        <p>Forest</p>
+      </section>
+      <section class="landing_page snapto">
+        <h1>Forest3</h1>
+        <p>Forest</p>
+      </section>
+      <section class="landing_page snapto">
+        <h1>Forest4</h1>
+        <p>Forest</p>
+      </section>
+      <section class="landing_page snapto">
+        <h1>Forest5</h1>
+        <p>Forest</p>
+
+        <button id="exploreForestID">Explore</button>
+      </section>
+
+
+
+
+
     
 
     <!--Link to js-->
     <script type="module" src="/src/main.js"></script>
+    
+    
+    
+    
     <button id="testButtonID">Change day/night</button>
 
 
