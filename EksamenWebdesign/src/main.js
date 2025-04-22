@@ -13,9 +13,9 @@ function lerp(x, y, percent) {
 //Import three.js library
 import * as THREE from "three";
 //Import loader for obj models and materials
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 //Import user controls
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
 //Create a three scene
 const scene = new THREE.Scene();
@@ -41,18 +41,19 @@ scene.add( helperdir );
 
 //Animation path //https://threejs.org/docs/?q=CatmullRomCurve3#api/en/extras/core/Curve
 const cameraCruve = new THREE.CatmullRomCurve3( [
+	//Define the curve path
 	new THREE.Vector3( 5, 5, -10),
 	new THREE.Vector3( -5, 7, -10),
 	new THREE.Vector3( -10, 10, -15),
 	new THREE.Vector3( -10, 15, 15),
-
 ]);
-const points = cameraCruve.getPoints( 50 );
+//Divide the curve to 50 points
+const points = cameraCruve.getPoints(50);
 const geometry = new THREE.BufferGeometry().setFromPoints( points );
 const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+//Add curve to scene
 const curveObject = new THREE.Line( geometry, material );
 scene.add(curveObject);
-
 
 //Loader for 3D Objects
 const loader = new GLTFLoader();
@@ -104,6 +105,7 @@ let scrollBarW = 0;
 let cameraPositionFromCurve = 0;
 //Camera offset positions
 let cameraOffset = new THREE.Vector3();
+let cameraLockTo = true;;
 //Circle Mouse
 const circleMouse = document.getElementById("costumMouseCourser");
 
@@ -140,12 +142,10 @@ function gameLoop() {
 	//Check for forest scene (if forest scene is loaded, all other objects should be loaded aswell)
 	if (oForestScene != -4) {
 		//Rotate forest scene on scrolling
-		//oForestScene.scene.rotation.y = lerp(oForestScene.scene.rotation.y, 1.5*yPosScroll, lerpAmountSpd);
+		//oForestScene.scene.rotation.y = lerp(oForestScene.scene.rotation.y, -1*yPosScroll, lerpAmountSpd);
 	
 
 	}
-
-
 
 	if (globalGameSetting == 0) {
 		//Update scrolling and camera only when veiwing HTML
@@ -153,29 +153,36 @@ function gameLoop() {
 	}
 	else {
 		//In explore mode
+
+		//Move Camera position
+		if (cameraLockTo == true) {
+			camera.position.set(5, 1, 5);
+			cameraLockTo = false;
+		}
+
 		//Update orbit controls
 		controls.update();
 
 	}
 	//Raycaster 
-	//raycast.setFromCamera(pointer, camera);
-	//const intersects = raycast.intersectObjects(scene.children);
-	//if (intersects.length > 0) {
-		/*
+	/*
+	raycast.setFromCamera(pointer, camera);
+	const intersects = raycast.intersectObjects(scene.children);
+	if (intersects.length > 0) {
+		
 		let objFound = intersects[0];
-		objFound.highlight(true);
 		console.log(objFound);
-		*/
-	//}
-	
-
-
-
+		
+	}
+	*/
 
 	//Render Final 3D Scene
 	renderer.render(scene, camera);
 }
 ////////End of game loop
+
+
+
 
 
 
@@ -197,6 +204,31 @@ function UpdateUserScroll() {
 	//console.log(yPosScroll);
 }
 document.addEventListener('scroll', UpdateUserScroll);
+
+//
+function moveInForest() {
+	if (globalGameSetting == 2) {
+		raycast.setFromCamera(pointer, camera);
+		const intersects = raycast.intersectObjects(scene.children);
+		if (intersects.length > 0) {
+			//Get fist object in raycast
+			let objClickTo = intersects[0].point;
+
+			//Copy orbit controls to point
+			camera.position.copy(objClickTo);
+			controls.position.copy(objClickTo);
+			
+
+		}
+		
+
+
+
+
+	}
+}
+document.addEventListener('click', moveInForest);
+
 
 
 //Run the Game Loop
@@ -236,6 +268,7 @@ function toggleForest() {
 		document.getElementById("costumMouseCourser").style.opacity = "0";
 		document.getElementById("bodyID").style.cursor = "auto";
 		globalGameSetting = 0;
+		cameraLockTo = true;
 	}
 }
 document.getElementById("exploreForestID").addEventListener("click", toggleForest);

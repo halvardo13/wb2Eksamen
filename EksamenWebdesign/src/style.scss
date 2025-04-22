@@ -1,6 +1,12 @@
+$text: #040804;
+$background: #fafdfa;
+$primary: #59b55e;
+$secondary: #a4d4d7;
+$accent: #729ec1;
+
+
 html {
   scroll-snap-type: y mandatory;
-
 }
 body {
   /*Set main font*/
@@ -61,6 +67,11 @@ button {
 header {
   display: flex;
   justify-content: center;
+  position: fixed;
+  height: 64px;
+  width: 100vw;
+  background-color: $primary;
+  color: $text;
 }
 
 
@@ -69,7 +80,7 @@ header {
   height: 16px;
   background: grey;
   border-radius: 32px;
-  position: fixed;
+
   display: flex;
   justify-content: center;
   margin-top: 8px;
@@ -112,10 +123,10 @@ header {
 
 .baseCard {
   /*Color*/
-  background-color: white;
-  color: black;
+  background-color: $secondary;
+  color: $primary;
   /*Border*/
-  border: 2px solid white;
+  border: 2px solid $secondary;
   border-radius: 6px;
   /*Shadow*/
   -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,1);
@@ -126,5 +137,14 @@ header {
 
   width: 480px;
   height: 300px;
+}
 
+img {
+  width: 480px;
+  height: 360px;
+}
+
+/*Styling for elements added within threejs scene*/
+.label_in_three {
+  z-index: 2;
 }
