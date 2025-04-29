@@ -70,6 +70,24 @@ loader.load(
 		scene.add(gltf.scene);
 	},
 );
+//Laod Globe
+let oGlobe = -4;
+loader.load(
+	//Link to 3d model
+	'../Models_3d/globle.glb',
+	//Called upon load
+	function (gltf) {
+		gltf.scene.position.set(5, 5, 5);
+		gltf.scene.visible = false;
+		gltf.scene.scale.set(5, 5, 5);
+		//Save refrence
+		oGlobe = gltf;
+		//Add object to scene
+		scene.add(gltf.scene);
+	},
+);
+
+
 
 //Create Camera
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 300);
@@ -120,7 +138,7 @@ function UpdateScrollingAndCamera() {
 	camera.position.copy(cameraPositionFromCurve);
 	//
 	scrollBarW = lerp(scrollBarW, 320*yPosScroll, lerpScrollBar);
-	document.getElementById("progressScroll").style.width = scrollBarW+"px";
+	//document.getElementById("progressScroll").style.width = scrollBarW+"px";
 	//Offset based on mouse position
 	cameraOffset.x = lerp(cameraOffset.x, -pointer.x, 0.03);
 	cameraOffset.y = lerp(cameraOffset.y, pointer.y, 0.03);
@@ -143,7 +161,7 @@ function gameLoop() {
 	if (oForestScene != -4) {
 		//Rotate forest scene on scrolling
 		//oForestScene.scene.rotation.y = lerp(oForestScene.scene.rotation.y, -1*yPosScroll, lerpAmountSpd);
-	
+		oGlobe.scene.rotation.y += 0.001;
 
 	}
 
@@ -201,33 +219,23 @@ function UpdateUserScroll() {
 	//Keep track of users scolling the document. Saves as percentage between 0 and 1
 	//This will controll most of the animatied objects in the scene
 	yPosScroll =  window.scrollY / (document.body.clientHeight - window.innerHeight);
-	//console.log(yPosScroll);
+	console.log(yPosScroll);
+
+	if (yPosScroll > 0.85) {
+		if (isDay == true) {
+			switchDay();
+		}
+	}
+	else {
+		if (isDay == false) {
+			switchDay();
+		}
+	}
+
 }
 document.addEventListener('scroll', UpdateUserScroll);
 
-//
-function moveInForest() {
-	if (globalGameSetting == 2) {
-		raycast.setFromCamera(pointer, camera);
-		const intersects = raycast.intersectObjects(scene.children);
-		if (intersects.length > 0) {
-			//Get fist object in raycast
-			let objClickTo = intersects[0].point;
 
-			//Copy orbit controls to point
-			camera.position.copy(objClickTo);
-			controls.position.copy(objClickTo);
-			
-
-		}
-		
-
-
-
-
-	}
-}
-document.addEventListener('click', moveInForest);
 
 
 
@@ -238,15 +246,20 @@ gameLoop();
 let isDay = true;
 
 //Funtions called from user input
-//Test button 
-function buttonTest() {
+ 
+function switchDay() {
 	if (isDay == false) {
 		scene.background = new THREE.Color(0x276468);
+		oGlobe.scene.visible = false;
+		oForestScene.scene.visible = true;
 	}
-	else scene.background = new THREE.Color(0x000000);
+	else {
+		scene.background = new THREE.Color(0x000000);
+		oGlobe.scene.visible = true;
+		oForestScene.scene.visible = false;
+	}
 	isDay = !isDay;
 }
-document.getElementById("testButtonID").addEventListener("click", buttonTest);
 //Toggle explore mode
 function toggleForest() {
 	if (globalGameSetting == 0) {

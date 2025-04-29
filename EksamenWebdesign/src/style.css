@@ -1,3 +1,15 @@
+/*Define colors*/
+@keyframes animateWidth {
+  0% {
+    width: 0%;
+  }
+  75% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
 html {
   scroll-snap-type: y mandatory;
 }
@@ -58,22 +70,52 @@ button {
 
 header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
-  height: 64px;
+  height: 72px;
   width: 100vw;
-  background-color: #59b55e;
-  color: #040804;
+  background-color: #1f3320;
+  color: #ffffff;
+}
+header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20%;
+}
+header p {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0px 8px 0px 16px;
+}
+header a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+  color: #ffffff;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+header a:hover {
+  color: #1f3320;
+  background-color: #ffffff;
+}
+
+.logo {
+  margin-left: 20%;
+  font-size: 28px;
 }
 
 .progressBarContainer {
   width: 320px;
   height: 16px;
-  background: grey;
+  background: #bddfb5;
   border-radius: 32px;
+  margin: auto;
   display: flex;
   justify-content: center;
-  margin-top: 8px;
 }
 
 .progressBar {
@@ -84,24 +126,37 @@ header {
   position: relative;
 }
 
-.landing_page {
+.baseStylePage {
   /*Flex and align to middle*/
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-flow: column;
   /*Always fill height of veiwport*/
   height: 100vh;
-  /*h1 in landing*/
-  /*p in landing*/
+  padding: 0px 20% 0px 20%;
 }
-.landing_page h1 {
-  font-size: 128px;
-  margin: 0;
+
+.bg {
+  background: rgb(31, 51, 32);
 }
-.landing_page p {
+.bg p {
+  font-size: 24px;
+}
+.bg h1 {
+  margin: 16px 0px 16px 0px;
   font-size: 64px;
-  margin: 0px 0px 8px 0px;
+  width: -moz-fit-content;
+  width: fit-content;
+  text-align: center;
+}
+
+.fullPageContainer {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row;
+  margin: 0px;
 }
 
 /*Scroll snap per section*/
@@ -110,18 +165,35 @@ header {
 }
 
 .baseCard {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: 32px;
   /*Color*/
-  background-color: #a4d4d7;
-  color: #59b55e;
+  background-color: #bddfb5;
+  color: #1f3320;
   /*Border*/
-  border: 2px solid #a4d4d7;
+  border: 2px solid #bddfb5;
   border-radius: 6px;
   /*Shadow*/
-  box-shadow: 0px 6px 48px 9px rgb(0, 0, 0);
+  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
   /**/
   padding: 16px;
-  width: 480px;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 32px;
   height: 300px;
+  margin: 0px;
+}
+.baseCard h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 4px;
+}
+.baseCard p {
+  font-size: 24px;
+  width: 300px;
+  margin: auto;
 }
 
 img {
@@ -132,4 +204,59 @@ img {
 /*Styling for elements added within threejs scene*/
 .label_in_three {
   z-index: 2;
+}
+
+.landing {
+  text-shadow: 2px 6px 4px rgba(0, 0, 0, 0.4);
+}
+.landing h1 {
+  font-size: 64px;
+  margin: 0;
+  margin-bottom: 8px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.landing h1::after {
+  content: "";
+  display: block;
+  width: 0%;
+  height: 6px;
+  border-radius: 6px;
+  background-color: white;
+  animation-name: animateWidth;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  margin: auto;
+}
+.landing p {
+  font-size: 32px;
+  width: 500px;
+  margin: 8px 0px 8px 0px;
+}
+
+.italicUnderHeadline {
+  font-style: italic;
+}
+
+button {
+  border-radius: 6px;
+  border: 8px;
+  border-color: #1f3320;
+  padding: 12px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #1f3320;
+  font-size: 32px;
+  /*Shadow*/
+  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: white;
+  color: #1f3320;
+  box-shadow: none;
 }/*# sourceMappingURL=style.css.map */

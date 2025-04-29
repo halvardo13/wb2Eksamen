@@ -1,8 +1,28 @@
-$text: #040804;
+/*Define colors*/
+$text: #ffffff;
 $background: #fafdfa;
-$primary: #59b55e;
-$secondary: #a4d4d7;
-$accent: #729ec1;
+$primary: #1f3320;
+$secondary: #bddfb5;
+$accent: #0d7554;
+
+$radiusForCorners: 6px;
+
+$textMarginGlobal: 20%;
+
+$animationBaseTime: 0.3s;
+
+@keyframes animateWidth {
+  0% {
+    width: 0%;
+  }
+  75% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
 
 
 html {
@@ -66,24 +86,56 @@ button {
 
 header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   position: fixed;
-  height: 64px;
+  height: 72px;
   width: 100vw;
   background-color: $primary;
   color: $text;
-}
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: $textMarginGlobal;
+  }
+  p {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0px 8px 0px 16px;
+  }
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    color: $text;
+    padding: 6px;
+    border-radius: $radiusForCorners;
 
+    transition: all $animationBaseTime;
+  }
+  a:hover {
+    color: $primary;
+    background-color: $text;
+
+  }
+}
+.logo {
+  margin-left: $textMarginGlobal;
+  font-size: 28px;
+}
 
 .progressBarContainer {
   width: 320px;
   height: 16px;
-  background: grey;
+  background: $secondary;
   border-radius: 32px;
+  margin: auto;
+
 
   display: flex;
   justify-content: center;
-  margin-top: 8px;
+
 }
 .progressBar {
   width: 0px;
@@ -94,24 +146,39 @@ header {
 
 }
 
-.landing_page {
+.baseStylePage {
   /*Flex and align to middle*/
   display: flex;
   justify-content: center;
-  align-items: center;
+  
   flex-flow: column;
   /*Always fill height of veiwport*/
   height: 100vh;
-  /*h1 in landing*/
-  h1 {
-    font-size: 128px;
-    margin: 0;
-  }
-  /*p in landing*/
+
+
+  padding: 0px $textMarginGlobal 0px $textMarginGlobal;
+}
+.bg {
   p {
-    font-size: 64px;
-    margin: 0px 0px 8px 0px;
+    font-size: 24px;
   }
+
+  background: rgb(31, 51, 32);
+  h1 {
+    margin: 16px 0px 16px 0px;
+    font-size: 64px;
+    width: fit-content;
+    text-align: center;
+  }
+}
+
+.fullPageContainer {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: row;
+  margin: 0px;
 }
 
 
@@ -121,7 +188,20 @@ header {
 }
 
 
+
+
+
+
+
+
 .baseCard {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+
+
+  margin: 32px;
   /*Color*/
   background-color: $secondary;
   color: $primary;
@@ -129,14 +209,28 @@ header {
   border: 2px solid $secondary;
   border-radius: 6px;
   /*Shadow*/
-  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,1);
-  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,1);
-  box-shadow: 0px 6px 48px 9px rgba(0,0,0,1);
+  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
   /**/
   padding: 16px;
 
-  width: 480px;
+  width: fit-content;
+  padding: 32px;
   height: 300px;
+
+  margin: 0px;
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 4px;
+  }
+  p{
+    font-size: 24px;
+    width: 300px;
+    margin: auto;
+  }
 }
 
 img {
@@ -147,4 +241,69 @@ img {
 /*Styling for elements added within threejs scene*/
 .label_in_three {
   z-index: 2;
+}
+
+$marginBetweenLanding: 8px;
+.landing {
+  text-shadow: 2px 6px 4px rgba(0, 0, 0, 0.4);
+  h1 {
+    font-size: 64px;
+    margin: 0;
+    margin-bottom: $marginBetweenLanding;
+    width: fit-content;
+
+  }
+  h1::after{
+    content: "";
+    display: block;
+    width: 0%;
+    height: 6px;
+    border-radius: $radiusForCorners;
+    background-color: white;
+    animation-name: animateWidth;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    margin: auto;
+  }
+  p {
+    font-size: 32px;
+    width: 500px;
+    margin: $marginBetweenLanding 0px $marginBetweenLanding 0px;
+
+  }
+
+}
+.italicUnderHeadline {
+  font-style: italic;
+}
+
+
+
+button {
+  border-radius: $radiusForCorners;
+  border: 8px;
+  border-color: $primary;
+  padding: 12px;
+  font-weight: bold;
+  color: $text;
+  background-color: $primary;
+
+  font-size: 32px;
+
+  /*Shadow*/
+  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+
+  width: fit-content;
+
+  cursor: pointer;
+
+  transition: all $animationBaseTime;
+}
+button:hover {
+  background-color: white;
+  color: $primary;
+
+  box-shadow: none;  
 }
