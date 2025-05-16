@@ -1,4 +1,22 @@
 /*Define colors*/
+@font-face {
+  font-family: mainFont;
+  src: url(./LilitaOne.ttf);
+}
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 0;
+}
+
+p {
+  font-size: 24px;
+}
+
 @keyframes animateWidth {
   0% {
     width: 0%;
@@ -11,21 +29,26 @@
   }
 }
 html {
-  scroll-snap-type: y mandatory;
+  /*scroll-snap-type: y mandatory;*/
+  scroll-behavior: smooth;
+  height: 100%;
 }
 
 body {
   /*Set main font*/
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-family: mainFont;
   /*Remove margin*/
   margin: 0;
   color: white;
   position: absolute;
   width: 100%;
-  /**/
-  scroll-behavior: smooth;
 }
 
+/*Scroll snap per section*/ /*
+.snapto {
+  scroll-snap-align: start;
+}
+*/
 #costumMouseCourser {
   /*Courser for explore*/
   pointer-events: none;
@@ -51,14 +74,6 @@ body {
           user-select: none;
 }
 
-button {
-  font-size: large;
-}
-
-.contain {
-  margin-left: 32px;
-}
-
 /*Canvas class for rendering scene*/
 .render3d {
   /*Make sure canvas is always a background*/
@@ -69,85 +84,197 @@ button {
 }
 
 header {
+  text-align: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   position: fixed;
   height: 72px;
   width: 100vw;
   background-color: #1f3320;
   color: #ffffff;
+  z-index: 1;
 }
 header ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 20%;
+  padding: 0px;
+  margin-left: 600px;
 }
 header p {
   font-weight: bold;
   font-size: 20px;
-  margin: 0px 8px 0px 16px;
 }
-header a {
+
+a {
   text-decoration: none;
   font-weight: bold;
   font-size: 24px;
   color: #ffffff;
   padding: 6px;
   border-radius: 6px;
+  width: -moz-fit-content;
+  width: fit-content;
   transition: all 0.3s;
 }
-header a:hover {
+
+a:hover {
   color: #1f3320;
   background-color: #ffffff;
 }
 
 .logo {
-  margin-left: 20%;
   font-size: 28px;
 }
 
+/*
 .progressBarContainer {
   width: 320px;
   height: 16px;
-  background: #bddfb5;
+  background: $secondary;
   border-radius: 32px;
   margin: auto;
+
+
   display: flex;
   justify-content: center;
-}
 
+}
 .progressBar {
   width: 0px;
   height: 16px;
   background: white;
   border-radius: 32px;
   position: relative;
-}
 
-.baseStylePage {
+}
+*/
+/*Base styling for all pages*/
+.landingPage {
   /*Flex and align to middle*/
   display: flex;
   justify-content: center;
   flex-flow: column;
   /*Always fill height of veiwport*/
-  height: 100vh;
-  padding: 0px 20% 0px 20%;
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  text-align: center;
+  justify-content: start;
+}
+.landingPage h1 {
+  margin: 200px auto 0px auto;
+  font-size: 128px;
+  width: 800px;
+}
+.landingPage p {
+  margin: 32px auto 32px auto;
+  font-size: 24px;
+  width: 400px;
+  color: grey;
 }
 
-.bg {
-  background: rgb(31, 51, 32);
+.minimal {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  /*Always fill height of veiwport*/
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  justify-content: start;
 }
-.bg p {
+.minimal p {
+  margin-top: 8px;
   font-size: 24px;
+  color: grey;
 }
-.bg h1 {
-  margin: 16px 0px 16px 0px;
-  font-size: 64px;
+.minimal img {
+  width: 320px;
+  height: 100px;
+}
+
+.paragraphMinimal {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-around;
+  gap: 128px;
+}
+
+.pitem {
+  width: 400px;
+  /*Shadow*/
+  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
+  background-color: #1f3320;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.alignCenterTextOn3d {
+  text-shadow: 4px 4px 6px black;
+  text-align: center;
+  margin: 32px 0px 0px 0px;
+}
+
+.alignCenterTextOn3dh1 {
+  text-shadow: 4px 4px 6px black;
+  text-align: center;
+  margin: 32px 0px 16px 0px;
+  font-size: 72px;
+}
+
+.alignLeftTextOn3d {
+  font-size: 72px;
+  margin: 128px 0px 16px 128px;
+  text-shadow: 4px 4px 6px black;
+}
+
+.buttonContainerSideways {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  gap: 64px;
+}
+
+/*
+    background: $primary;
+    mix-blend-mode: multiply;
+*/
+.test {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  /*Always fill height of veiwport*/
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}
+
+.arrowDown {
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  display: block;
+}
+
+.svglink {
+  display: inline-block;
   width: -moz-fit-content;
   width: fit-content;
-  text-align: center;
+  margin: 32px auto 32px auto;
+}
+
+/*Background fill*/
+.bg {
+  background: #1f3320;
+}
+
+.bgClip {
+  background: black;
+  mix-blend-mode: multiply;
 }
 
 .fullPageContainer {
@@ -159,85 +286,6 @@ header a:hover {
   margin: 0px;
 }
 
-/*Scroll snap per section*/
-.snapto {
-  scroll-snap-align: start;
-}
-
-.baseCard {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  margin: 32px;
-  /*Color*/
-  background-color: #bddfb5;
-  color: #1f3320;
-  /*Border*/
-  border: 2px solid #bddfb5;
-  border-radius: 6px;
-  /*Shadow*/
-  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
-  /**/
-  padding: 16px;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 32px;
-  height: 300px;
-  margin: 0px;
-}
-.baseCard h1 {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 4px;
-}
-.baseCard p {
-  font-size: 24px;
-  width: 300px;
-  margin: auto;
-}
-
-img {
-  width: 480px;
-  height: 360px;
-}
-
-/*Styling for elements added within threejs scene*/
-.label_in_three {
-  z-index: 2;
-}
-
-.landing {
-  text-shadow: 2px 6px 4px rgba(0, 0, 0, 0.4);
-}
-.landing h1 {
-  font-size: 64px;
-  margin: 0;
-  margin-bottom: 8px;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.landing h1::after {
-  content: "";
-  display: block;
-  width: 0%;
-  height: 6px;
-  border-radius: 6px;
-  background-color: white;
-  animation-name: animateWidth;
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
-  margin: auto;
-}
-.landing p {
-  font-size: 32px;
-  width: 500px;
-  margin: 8px 0px 8px 0px;
-}
-
-.italicUnderHeadline {
-  font-style: italic;
-}
-
 button {
   border-radius: 6px;
   border: 8px;
@@ -246,7 +294,9 @@ button {
   font-weight: bold;
   color: #ffffff;
   background-color: #1f3320;
+  font-family: mainFont;
   font-size: 32px;
+  /*Shadow*/
   /*Shadow*/
   box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
   width: -moz-fit-content;
@@ -259,4 +309,65 @@ button:hover {
   background-color: white;
   color: #1f3320;
   box-shadow: none;
+}
+
+.listOfCardsContainer {
+  margin: 0px 0px 0px 128px;
+  padding: 0px;
+  font-size: 24px;
+  display: flex;
+  flex-flow: column;
+  gap: 32px;
+}
+
+.listOfCardsContainerRow {
+  margin: 32px;
+  padding: 0px;
+  font-size: 24px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.listOfCardsItem {
+  align-items: center;
+  padding-left: 16px;
+  display: flex;
+  width: 640px;
+  border-radius: 8px;
+  background-color: #1f3320;
+  /*Shadow*/
+  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
+}
+.listOfCardsItem img {
+  width: 320px;
+  height: 180px;
+  border-radius: 8px;
+}
+
+.textInContainer {
+  display: flex;
+  flex-flow: column;
+}
+
+.statsContainer {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-flow: row;
+  margin: auto;
+  margin-top: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  border-radius: 16px;
+  padding: 16px;
+  padding-bottom: 0;
+  background-color: #1f3320;
+  margin-bottom: 128px;
+  text-align: center;
+  /*Shadow*/
+  box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
 }/*# sourceMappingURL=style.css.map */

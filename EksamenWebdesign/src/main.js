@@ -2,6 +2,10 @@
 document.getElementById("exit_exploreForestID").disabled = true;
 document.getElementById("costumMouseCourser").style.opacity = "0";
 
+//Initilise aos library http://github.com/michalsnik/aos
+AOS.init();
+
+
 //Make sure HTMML loads from top. (refresh without this causes user to stay where they refresed)
 //window.scrollTo(0, 0);
 
@@ -61,15 +65,25 @@ const loader = new GLTFLoader();
 let oForestScene = -4;
 loader.load(
 	//Link to 3d model
-	'../Models_3d/forestSceneBIG.glb',
+	'../Models_3d/forest.glb',
 	//Called upon load
 	function (gltf) {
 		//Save refrence
 		oForestScene = gltf;
 		//Add object to scene
 		scene.add(gltf.scene);
+
+
+		const mirroredX = oForestScene.clone();
+		mirroredX.scale.x *= -1;
+		scene.add(mirroredX);
 	},
 );
+
+
+
+
+
 //Laod Globe
 let oGlobe = -4;
 loader.load(
@@ -273,6 +287,8 @@ function toggleForest() {
 		globalGameSetting = 1;
 	}
 	else {
+		//Reset scoll position
+		window.scrollTo(0, 0);
 		//Put canvas under HTML layer
 		document.getElementById("renderID").style.zIndex = "-1";
 		//Disable explore UI
@@ -286,3 +302,10 @@ function toggleForest() {
 }
 document.getElementById("exploreForestID").addEventListener("click", toggleForest);
 document.getElementById("exit_exploreForestID").addEventListener("click", toggleForest);
+
+//Update aspect ration of the canvas whenever window size is changed
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});

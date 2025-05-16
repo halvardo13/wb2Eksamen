@@ -7,9 +7,29 @@ $accent: #0d7554;
 
 $radiusForCorners: 6px;
 
-$textMarginGlobal: 20%;
+$textMarginGlobal: 10%;
 
 $animationBaseTime: 0.3s;
+
+
+@font-face {
+  font-family: mainFont;
+  src: url(./LilitaOne.ttf);
+}
+
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+h2 {
+  font-size: 32px;
+  margin: 0;
+}
+p {
+  font-size: 24px;
+}
+
 
 @keyframes animateWidth {
   0% {
@@ -22,24 +42,26 @@ $animationBaseTime: 0.3s;
     width: 100%;
   }
 }
-
-
-
 html {
-  scroll-snap-type: y mandatory;
+  /*scroll-snap-type: y mandatory;*/
+  scroll-behavior: smooth;
+  height: 100%;
 }
 body {
   /*Set main font*/
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: mainFont;
 
   /*Remove margin*/
   margin: 0;
   color: white;
   position: absolute;
   width: 100%;
-  /**/
-  scroll-behavior: smooth;
 }
+/*Scroll snap per section*//*
+.snapto {
+  scroll-snap-align: start;
+}
+*/
 #costumMouseCourser {
   /*Courser for explore*/
   pointer-events: none;
@@ -56,24 +78,12 @@ body {
   //mix-blend-mode: difference;
   transition: transform .2s;
 }
-
 .exploreUI {
   opacity: 0;
   z-index: 2;
   position: fixed;
   user-select: none;   
 }
-
-
-button {
-  font-size: large;
-
-}
-
-.contain {
-  margin-left: 32px;
-}
-
 /*Canvas class for rendering scene*/
 .render3d {
   /*Make sure canvas is always a background*/
@@ -85,46 +95,54 @@ button {
 
 
 header {
+  text-align: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   position: fixed;
   height: 72px;
   width: 100vw;
   background-color: $primary;
   color: $text;
+  z-index: 1;
+
   ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: $textMarginGlobal;
+    padding: 0px;
+    margin-left: 600px;
   }
   p {
     font-weight: bold;
     font-size: 20px;
-    margin: 0px 8px 0px 16px;
-  }
-  a {
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 24px;
-    color: $text;
-    padding: 6px;
-    border-radius: $radiusForCorners;
-
-    transition: all $animationBaseTime;
-  }
-  a:hover {
-    color: $primary;
-    background-color: $text;
-
   }
 }
+a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+  color: $text;
+  padding: 6px;
+  border-radius: $radiusForCorners;
+
+  width: fit-content;
+
+
+  transition: all $animationBaseTime;
+}
+a:hover {
+  color: $primary;
+  background-color: $text;
+
+}
+
+
 .logo {
-  margin-left: $textMarginGlobal;
+  
   font-size: 28px;
 }
-
+/*
 .progressBarContainer {
   width: 320px;
   height: 16px;
@@ -145,32 +163,147 @@ header {
   position: relative;
 
 }
+*/
 
-.baseStylePage {
+/*Base styling for all pages*/
+@mixin baseStylePage {
   /*Flex and align to middle*/
   display: flex;
-  justify-content: center;
-  
+  justify-content: center;  
   flex-flow: column;
+
+  
   /*Always fill height of veiwport*/
-  height: 100vh;
-
-
-  padding: 0px $textMarginGlobal 0px $textMarginGlobal;
+  min-height: 1000px;
+  max-height: fit-content;
 }
-.bg {
-  p {
-    font-size: 24px;
-  }
+@mixin boxShadowMain  {
+  /*Shadow*/
+  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+}
 
-  background: rgb(31, 51, 32);
+
+
+
+.landingPage {
+  @include baseStylePage();
+  text-align: center;
+  justify-content: start;
   h1 {
-    margin: 16px 0px 16px 0px;
-    font-size: 64px;
-    width: fit-content;
-    text-align: center;
+    margin: 200px auto 0px auto;
+    font-size: 128px;
+    width: 800px;
+  }
+  p {
+    margin: 32px auto 32px auto;
+    font-size: 24px;
+    width: 400px;
+    color: grey
   }
 }
+.minimal {
+  @include baseStylePage();
+  justify-content: start;
+  p {
+    margin-top: 8px;
+    font-size: 24px;
+    color: grey;
+
+  }
+
+
+  img {
+    width: 320px;
+    height: 100px;
+  }
+
+}
+.paragraphMinimal {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-around;
+  gap: 128px;
+}
+.pitem {
+  width: 400px;
+  /*Shadow*/
+  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  background-color: $primary;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.alignCenterTextOn3d {
+  text-shadow: 4px 4px 6px black;
+  text-align: center;
+  margin: 32px 0px 0px 0px;
+}
+.alignCenterTextOn3dh1 {
+  text-shadow: 4px 4px 6px black;
+  text-align: center;
+  margin: 32px 0px 16px 0px;
+  font-size: 72px;
+}
+.alignLeftTextOn3d {
+  font-size: 72px;
+  margin: 128px 0px 16px 128px;
+  text-shadow: 4px 4px 6px black;
+}
+
+
+.buttonContainerSideways {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  gap: 64px;
+
+
+}
+
+/*
+    background: $primary;
+    mix-blend-mode: multiply;
+*/
+.donate {
+  @include baseStylePage();
+}
+.test {
+  @include baseStylePage();
+}
+
+
+
+
+.arrowDown {
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+  display: block;
+
+}
+.svglink {
+  display: inline-block;
+  width: fit-content;
+  margin: 32px auto 32px auto;
+}
+
+
+
+
+/*Background fill*/
+.bg {
+  background: $primary;
+}
+.bgClip {
+  background: black;
+  mix-blend-mode: multiply;
+}
+
+
 
 .fullPageContainer {
   /*Flex and align to middle*/
@@ -182,100 +315,7 @@ header {
 }
 
 
-/*Scroll snap per section*/
-.snapto {
-  scroll-snap-align: start;
-}
 
-
-
-
-
-
-
-
-.baseCard {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-
-
-
-  margin: 32px;
-  /*Color*/
-  background-color: $secondary;
-  color: $primary;
-  /*Border*/
-  border: 2px solid $secondary;
-  border-radius: 6px;
-  /*Shadow*/
-  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  /**/
-  padding: 16px;
-
-  width: fit-content;
-  padding: 32px;
-  height: 300px;
-
-  margin: 0px;
-
-  h1 {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 4px;
-  }
-  p{
-    font-size: 24px;
-    width: 300px;
-    margin: auto;
-  }
-}
-
-img {
-  width: 480px;
-  height: 360px;
-}
-
-/*Styling for elements added within threejs scene*/
-.label_in_three {
-  z-index: 2;
-}
-
-$marginBetweenLanding: 8px;
-.landing {
-  text-shadow: 2px 6px 4px rgba(0, 0, 0, 0.4);
-  h1 {
-    font-size: 64px;
-    margin: 0;
-    margin-bottom: $marginBetweenLanding;
-    width: fit-content;
-
-  }
-  h1::after{
-    content: "";
-    display: block;
-    width: 0%;
-    height: 6px;
-    border-radius: $radiusForCorners;
-    background-color: white;
-    animation-name: animateWidth;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    margin: auto;
-  }
-  p {
-    font-size: 32px;
-    width: 500px;
-    margin: $marginBetweenLanding 0px $marginBetweenLanding 0px;
-
-  }
-
-}
-.italicUnderHeadline {
-  font-style: italic;
-}
 
 
 
@@ -288,12 +328,12 @@ button {
   color: $text;
   background-color: $primary;
 
+  font-family: mainFont;
+
   font-size: 32px;
 
   /*Shadow*/
-  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
+  @include boxShadowMain();
 
   width: fit-content;
 
@@ -306,4 +346,71 @@ button:hover {
   color: $primary;
 
   box-shadow: none;  
+}
+
+
+
+.listOfCardsContainer {
+  margin: 0px 0px 0px 128px;
+  padding: 0px;
+  font-size: 24px;
+
+  display: flex;
+  flex-flow: column;
+  gap: 32px;
+}
+.listOfCardsContainerRow {
+  margin: 32px;
+  padding: 0px;
+  font-size: 24px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+
+  gap: 32px;
+}
+.listOfCardsItem {
+
+  align-items: center;
+  padding-left: 16px;
+
+  display: flex;
+  width: 640px;
+
+  border-radius: 8px;
+  background-color: $primary;
+  @include boxShadowMain();
+  img {
+    width: 320px;
+    height: 180px;
+    border-radius: 8px;
+  }
+}
+.textInContainer {
+  display: flex;
+  flex-flow: column;
+}
+
+.statsContainer {
+  width: fit-content;
+  display: flex;
+  flex-flow: row;
+  margin: auto;
+  margin-top: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+
+  border-radius: 16px;
+  padding: 16px;
+  padding-bottom: 0;
+  background-color: $primary;
+
+  margin-bottom: 128px;
+
+  text-align: center;
+
+  @include boxShadowMain();
 }
