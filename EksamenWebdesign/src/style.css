@@ -151,6 +151,11 @@ a:hover {
 }
 */
 /*Base styling for all pages*/
+p {
+  font-size: 24px;
+  color: grey;
+}
+
 .landingPage {
   /*Flex and align to middle*/
   display: flex;
@@ -172,7 +177,6 @@ a:hover {
   margin: 32px auto 32px auto;
   font-size: 24px;
   width: 400px;
-  color: grey;
 }
 
 .minimal {
@@ -189,7 +193,6 @@ a:hover {
 .minimal p {
   margin-top: 8px;
   font-size: 24px;
-  color: grey;
 }
 .minimal img {
   width: 320px;
@@ -242,6 +245,90 @@ a:hover {
     background: $primary;
     mix-blend-mode: multiply;
 */
+.donate {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  /*Always fill height of veiwport*/
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  flex-flow: row;
+  justify-content: center;
+}
+
+.donateContainer {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  /*Always fill height of veiwport*/
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  padding-left: 128px;
+}
+.donateContainer h1 {
+  text-align: left;
+  font-size: 72px;
+  margin: 0 0 32px 0;
+}
+.donateContainer p {
+  margin: 0 0 32px 0;
+  width: 340px;
+}
+
+.donateGoal {
+  width: 340px;
+  height: 32px;
+  border-radius: 16px;
+  background-color: black;
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+.donateGoal p {
+  padding: 32px 8px 32px 8px;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.donateGoal2 {
+  position: absolute;
+  content: "";
+  border-radius: 16px;
+  height: 32px;
+  background-color: white;
+  transition: width 0.5s;
+}
+
+.contactContainer {
+  /*Flex and align to middle*/
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  /*Always fill height of veiwport*/
+  min-height: 1000px;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  flex-flow: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.contactItem p {
+  width: 320px;
+  text-align: center;
+}
+.contactItem h1 {
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 72px;
+  margin: 0;
+}
+
 .test {
   /*Flex and align to middle*/
   display: flex;
@@ -251,6 +338,14 @@ a:hover {
   min-height: 1000px;
   max-height: -moz-fit-content;
   max-height: fit-content;
+}
+
+.donateButton {
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 16px;
+  width: 160px;
+  height: auto;
 }
 
 .arrowDown {
@@ -370,4 +465,20 @@ button:hover {
   text-align: center;
   /*Shadow*/
   box-shadow: 0px 6px 48px 9px rgba(0, 0, 0, 0.5);
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+
+input[type=text] {
+  border-radius: 16px;
+  font-size: 24px;
+  margin: 0px 0px 32px 0px;
+  border-style: none;
+  padding: 8px;
+  font-family: mainFont;
 }/*# sourceMappingURL=style.css.map */

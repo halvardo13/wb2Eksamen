@@ -2,6 +2,28 @@
 document.getElementById("exit_exploreForestID").disabled = true;
 document.getElementById("costumMouseCourser").style.opacity = "0";
 
+
+//
+const donationBar = document.getElementById("donationProgress");
+const donateMax = 10000;
+let donated = 4000;
+let percent = donated / donateMax * 100;
+
+donationBar.style.width = percent+"%";
+function addToDonation(amount) {
+	donated += amount;
+
+
+	let percent = donated / donateMax * 100;
+	percent = clamp(percent, 0, 100);
+	donationBar.style.width = percent+"%";
+}
+//Make function global
+window.addToDonation = addToDonation;
+
+
+
+
 //Initilise aos library http://github.com/michalsnik/aos
 AOS.init();
 
@@ -20,6 +42,7 @@ import * as THREE from "three";
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 //Import user controls
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import { clamp } from "three/src/math/MathUtils.js";
 
 //Create a three scene
 const scene = new THREE.Scene();
@@ -79,11 +102,6 @@ loader.load(
 		scene.add(mirroredX);
 	},
 );
-
-
-
-
-
 //Laod Globe
 let oGlobe = -4;
 loader.load(
@@ -100,6 +118,23 @@ loader.load(
 		scene.add(gltf.scene);
 	},
 );
+
+
+const allInteractives = [];
+
+//Load interactables
+const g = new THREE.BoxGeometry( 1, 1, 1 );
+const m = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+const interactable = new THREE.Mesh( g, m );
+interactable.userData = {
+	nameOfFact : "test name headline",
+	desc : "test desc"
+
+}
+
+allInteractives.push(interactable);
+scene.add( interactable );
+
 
 
 
@@ -196,17 +231,18 @@ function gameLoop() {
 		controls.update();
 
 	}
-	//Raycaster 
-	/*
+	//Raycaster for interacable
 	raycast.setFromCamera(pointer, camera);
-	const intersects = raycast.intersectObjects(scene.children);
+	//Look for only interactables
+	const intersects = raycast.intersectObjects(allInteractives);
 	if (intersects.length > 0) {
-		
 		let objFound = intersects[0];
-		console.log(objFound);
+		
+		
+		console.log(objFound.object.userData);
 		
 	}
-	*/
+	
 
 	//Render Final 3D Scene
 	renderer.render(scene, camera);
@@ -233,7 +269,7 @@ function UpdateUserScroll() {
 	//Keep track of users scolling the document. Saves as percentage between 0 and 1
 	//This will controll most of the animatied objects in the scene
 	yPosScroll =  window.scrollY / (document.body.clientHeight - window.innerHeight);
-	console.log(yPosScroll);
+	//console.log(yPosScroll);
 
 	if (yPosScroll > 0.85) {
 		if (isDay == true) {
@@ -309,3 +345,8 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+
+
+
+

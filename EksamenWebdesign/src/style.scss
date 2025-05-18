@@ -185,6 +185,10 @@ a:hover {
 }
 
 
+p {
+  font-size: 24px;
+  color: grey;
+}
 
 
 .landingPage {
@@ -200,7 +204,6 @@ a:hover {
     margin: 32px auto 32px auto;
     font-size: 24px;
     width: 400px;
-    color: grey
   }
 }
 .minimal {
@@ -209,7 +212,6 @@ a:hover {
   p {
     margin-top: 8px;
     font-size: 24px;
-    color: grey;
 
   }
 
@@ -268,11 +270,94 @@ a:hover {
     background: $primary;
     mix-blend-mode: multiply;
 */
-.donate {
+.donate{
   @include baseStylePage();
+  flex-flow: row;
+  justify-content: center;
 }
+
+
+.donateContainer {
+  @include baseStylePage();
+  padding-left: 128px;
+  h1 {
+    text-align: left;
+    font-size: 72px;
+    margin: 0 0 32px 0;
+  } 
+  p {
+    margin: 0 0 32px 0;
+    width: 340px;
+  }
+}
+
+
+.donateGoal {
+  width: 340px;
+  height: 32px;
+  
+  border-radius: 16px;
+  background-color: black; 
+  position: relative;
+
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+
+  p {
+    padding: 32px 8px 32px 8px;
+    width: fit-content;
+  }
+}
+.donateGoal2 {
+  position: absolute;
+  content: "";
+  border-radius: 16px;
+
+
+  height: 32px;
+  background-color: white;
+
+  transition: width 0.5s
+
+}
+
+.contactContainer {
+  @include baseStylePage();
+  flex-flow: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+.contactItem {
+
+  p {
+    width: 320px;
+    text-align: center;
+
+  }
+  h1 {
+    width: fit-content;
+    font-size: 72px;
+    margin: 0;
+
+  }
+
+}
+
+
+
 .test {
   @include baseStylePage();
+}
+.donateButton {
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 16px;
+
+
+  width: 160px;
+  height: auto;
 }
 
 
@@ -413,4 +498,21 @@ button:hover {
   text-align: center;
 
   @include boxShadowMain();
+}
+
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+input[type=text] {
+  border-radius: 16px;
+  font-size: 24px;
+  margin: 0px 0px 32px 0px;
+  border-style: none;
+  padding: 8px;
+
+  font-family: mainFont;
 }

@@ -7,6 +7,9 @@
     <title>Forest Wardens</title>
     <link rel="stylesheet" href="./src/style.css">
     <link rel="stylesheet" href="./src/aos.css" />
+
+    <script type="module" src="/src/main.js" defer></script>
+    <script src="/src/aos.js"></script>
   </head>
   <body id="bodyID">
     <!--Courser-->
@@ -31,7 +34,7 @@
         <a href="">Contact</a>
       </ul>      
       <!--Donate-->
-      <a href="">Donate</a>
+      <a href="#donate">Donate</a>
     </header>
     <!--UI when exploring 3d-->
     <div id="exploreUI_ID" class="exploreUI">
@@ -171,9 +174,28 @@
           </li>
         </ul>
       </section>
-      <!---->
-      <section class="test bg">
-        <h1 style="font-size: 200px; margin: auto;" data-aos="zoom-out-left">Join US</h1>
+      <!--Donation page-->
+      <section class="donate bg" id="donate">
+        <div class="donateContainer">
+          <h1 data-aos="fade-in" data-aos-delay="300">Help us, </h1>
+          <p data-aos="zoom-out-down">Become a <span style="color: white;" data-aos="zoom-out-up" data-aos-delay="900">warden</span> today</p>
+          <p data-aos="zoom-out-up">Without support nterdum  vel eleifend mauris. Duis ac nunc sed vel eleifend mauris. Duis ac nunc sed</p>
+          <!--Donation progress bar-->
+          <div class="donateGoal" data-aos="zoom-out-up" data-aos-delay="600">
+            <div class="donateGoal2" id="donationProgress"></div>
+            <p data-aos="zoom-out-left" data-aos-delay="900">0$</p>
+            <p data-aos="zoom-out-right" data-aos-delay="900">10 000$</p>
+          </div>
+        </div>
+        <!--Donation amount buttons-->
+        <div class="donateContainer">
+          <button onclick="addToDonation(50);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="600">50$</button>
+          <button onclick="addToDonation(100);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="900">100$</button>
+          <button onclick="addToDonation(250);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="1200">250$</button>
+          <button onclick="addToDonation(500);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="1500">500$</button>
+        </div>
+
+
 
       </section>
       <section class="donate">
@@ -183,13 +205,33 @@
 
 
       <!---->
-      <section class="test bg">
-        <h1>Contact/newsletter</h1>
-        
+      <section class="contactContainer bg">
+
+        <div class="contactItem">        <p>Any questions?</p>
+          <h1>Contact us</h1>
+          <p>Discover more about what we are protecting nterdum  vel eleifend mauris. D</p>
+          <p>Adress: Forest street 7</p>
+          <p>Phone: 123 45 678</p>
+          <button>Email Us</button>
+        </div>
+        <div class="contactItem">        
+          <p>Want to stay informed?</p>
+          <h1>Newsletter</h1>
+          <p>Discover more about what we are protecting nterdum  vel eleifend mauris. D</p>
+
+          <form action="">
+            <p>Your Email</p><br>
+            <input type="text" name="email" id="email" placeholder="Your email name.."><br>
+            <button>Submit</button>
+          </form>
+
+        </div>
+
       </section>
       <!---->
       <section class="test">
-        <h1>earth / closing page / thank you page</h1>
+
+        <h1>earth / closing page / thank you page/ common goal</h1>
         
       </section>
 
@@ -198,8 +240,6 @@
     </main>
     
 
-    <script type="module" src="/src/main.js"></script>
-    <script src="/src/aos.js"></script>
     <!-- https://github.com/michalsnik/aos/tree/v2?tab=readme-ov-file -->
     
     
