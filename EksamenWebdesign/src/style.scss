@@ -14,7 +14,7 @@ $animationBaseTime: 0.3s;
 
 @font-face {
   font-family: mainFont;
-  src: url(./LilitaOne.ttf);
+  src: url(./Outfit-VariableFont_wght.ttf);
 }
 
 
@@ -30,38 +30,49 @@ p {
   font-size: 24px;
 }
 
-
-@keyframes animateWidth {
-  0% {
-    width: 0%;
-  }
-  75% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
 html {
-  /*scroll-snap-type: y mandatory;*/
+  /*set scroll to smooth*/
   scroll-behavior: smooth;
-  height: 100%;
 }
 body {
   /*Set main font*/
   font-family: mainFont;
-
   /*Remove margin*/
   margin: 0;
   color: white;
   position: absolute;
   width: 100%;
+
+  /*aos animations seems to add overflow (on small screen sizes) from animations 
+  cooming from right, so overflow-x needs to be hidden*/
+  overflow-x: hidden !important;
+  overscroll-behavior-x: none;
 }
-/*Scroll snap per section*//*
-.snapto {
-  scroll-snap-align: start;
+
+
+.textBox {
+  display: flex;
+  flex-flow: column;
+  justify-items: flex-end;
+  width: 400px;
+
+  background-color: $primary;
+  border-radius: 16px;
+  margin: 32px 0px 32px 128px;
+  padding: 16px;
 }
-*/
+.textBoxAlwaysCenter {
+  display: flex;
+  flex-flow: column;
+  justify-items: flex-end;
+  width: 400px;
+
+  background-color: $primary;
+  border-radius: 16px;
+  margin: 32px auto 32px auto;
+  padding: 16px;
+}
+
 #costumMouseCourser {
   /*Courser for explore*/
   pointer-events: none;
@@ -74,16 +85,36 @@ body {
   top: var(--y, 0);
   left: var(--x, 0);
   transform: translate(-50%, -50%);
-  z-index: 3;
+  z-index: 2;
   //mix-blend-mode: difference;
   transition: transform .2s;
 }
 .exploreUI {
   opacity: 0;
   z-index: 2;
-  position: fixed;
-  user-select: none;   
+  //This turns to flex when explore mode is activated by user
+  display: none;
+
+  flex-flow: column;
+
+  margin: 32px 0px 0px 32px;
+
+  background-color: $primary;
+  border-radius: 16px;
+
+  width: fit-content;
+  padding: 8px;
+
+
+  p {
+    width: 300px;
+  }
+  h2 {
+    margin-top: 16px;
+  }
 }
+
+
 /*Canvas class for rendering scene*/
 .render3d {
   /*Make sure canvas is always a background*/
@@ -111,7 +142,8 @@ header {
     justify-content: center;
     align-items: center;
     padding: 0px;
-    margin-left: 600px;
+    margin-left: 100px;
+    gap: 24px;
   }
   p {
     font-weight: bold;
@@ -128,42 +160,22 @@ a {
 
   width: fit-content;
 
-
+  
   transition: all $animationBaseTime;
 }
 a:hover {
   color: $primary;
   background-color: $text;
 
+
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
 }
 
 
 .logo {
-  
-  font-size: 28px;
+  font-size: 24px;
 }
-/*
-.progressBarContainer {
-  width: 320px;
-  height: 16px;
-  background: $secondary;
-  border-radius: 32px;
-  margin: auto;
-
-
-  display: flex;
-  justify-content: center;
-
-}
-.progressBar {
-  width: 0px;
-  height: 16px;
-  background: white;
-  border-radius: 32px;
-  position: relative;
-
-}
-*/
 
 /*Base styling for all pages*/
 @mixin baseStylePage {
@@ -172,10 +184,13 @@ a:hover {
   justify-content: center;  
   flex-flow: column;
 
-  
-  /*Always fill height of veiwport*/
-  min-height: 1000px;
+  /**/
+  min-height: 100dvh;
   max-height: fit-content;
+
+  //Hide x overflow here aswell becuse of aos animations
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 @mixin boxShadowMain  {
   /*Shadow*/
@@ -191,6 +206,14 @@ p {
 }
 
 
+
+.highlight {
+  color: $primary;
+  background-color: white;
+  padding: 4px;
+  border-radius: 16px;
+}
+
 .landingPage {
   @include baseStylePage();
   text-align: center;
@@ -201,9 +224,10 @@ p {
     width: 800px;
   }
   p {
-    margin: 32px auto 32px auto;
+    margin: 16px auto 16px auto;
     font-size: 24px;
     width: 400px;
+    max-width: fit-content
   }
 }
 .minimal {
@@ -221,22 +245,6 @@ p {
     height: 100px;
   }
 
-}
-.paragraphMinimal {
-  margin-bottom: 32px;
-  display: flex;
-  justify-content: space-around;
-  gap: 128px;
-}
-.pitem {
-  width: 400px;
-  /*Shadow*/
-  -webkit-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  box-shadow: 0px 6px 48px 9px rgba(0,0,0,0.5);
-  background-color: $primary;
-  padding: 16px;
-  border-radius: 16px;
 }
 
 .alignCenterTextOn3d {
@@ -266,20 +274,41 @@ p {
 
 }
 
-/*
-    background: $primary;
-    mix-blend-mode: multiply;
-*/
 .donate{
   @include baseStylePage();
   flex-flow: row;
   justify-content: center;
+
+
+  form {
+    padding: 32px;
+  }
+  input {
+    width: 200px;
+  }
 }
 
 
 .donateContainer {
   @include baseStylePage();
   padding-left: 128px;
+  
+
+  h1 {
+    text-align: left;
+    font-size: 72px;
+    margin: 0 0 32px 0;
+  } 
+  p {
+    margin: 0 0 32px 0;
+    width: 340px;
+  }
+}
+.donateContainerButtons {
+  @include baseStylePage();
+  padding-left: 128px;
+  
+
   h1 {
     text-align: left;
     font-size: 72px;
@@ -291,6 +320,11 @@ p {
   }
 }
 
+
+.emailButton {
+  margin: auto;
+  align-self: center;
+}
 
 .donateGoal {
   width: 340px;
@@ -330,7 +364,6 @@ p {
 
 }
 .contactItem {
-
   p {
     width: 320px;
     text-align: center;
@@ -345,10 +378,54 @@ p {
 
 }
 
-
-
-.test {
+.explorePage {
   @include baseStylePage();
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 32px;
+  
+
+}
+.exploreItem {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  background-color: $primary;
+  border-radius: 16px;
+  
+  padding: 64px;
+  margin: auto;
+
+  button {
+    margin: auto;
+  }
+  text-align: center;
+  h1 {
+    width: fit-content;
+    font-size: 72px;
+    margin-bottom: 16px;
+  }
+  p {
+    width: 300px;
+    text-align: center;
+  }
+}
+
+.foot {
+  @include baseStylePage();
+  justify-content: center;
+  text-align: center;
+  h1 {
+    font-size: 64px;
+    padding: 64px;
+    background-color: $primary;
+    width: fit-content;
+    margin: 16px auto 16px auto;
+    text-shadow: 4px 4px 6px black;
+    border-radius: 16px;
+  }
 }
 .donateButton {
   border-radius: 16px;
@@ -360,54 +437,45 @@ p {
   height: auto;
 }
 
-
-
-
+.logoInFooter {
+  width: 250px;
+  height: 250px;
+  pointer-events: none;
+  display: block;
+}
 .arrowDown {
   width: 50px;
   height: 50px;
   pointer-events: none;
   display: block;
-
 }
 .svglink {
   display: inline-block;
   width: fit-content;
   margin: 32px auto 32px auto;
+  
 }
-
-
-
 
 /*Background fill*/
 .bg {
   background: $primary;
 }
+
 .bgClip {
   background: black;
   mix-blend-mode: multiply;
 }
 
-
-
-.fullPageContainer {
-  /*Flex and align to middle*/
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-flow: row;
-  margin: 0px;
-}
-
-
-
-
-
-
 button {
-  border-radius: $radiusForCorners;
-  border: 8px;
-  border-color: $primary;
+  transition: all $animationBaseTime;
+
+
+  border: 8px solid;
+  border-color: white;
+  border-radius: 16px;
+
+  
+
   padding: 12px;
   font-weight: bold;
   color: $text;
@@ -416,25 +484,18 @@ button {
   font-family: mainFont;
 
   font-size: 32px;
-
   /*Shadow*/
-  @include boxShadowMain();
+  //@include boxShadowMain();
 
   width: fit-content;
 
   cursor: pointer;
-
-  transition: all $animationBaseTime;
 }
 button:hover {
   background-color: white;
   color: $primary;
-
-  box-shadow: none;  
+ 
 }
-
-
-
 .listOfCardsContainer {
   margin: 0px 0px 0px 128px;
   padding: 0px;
@@ -453,16 +514,18 @@ button:hover {
   flex-wrap: wrap;
   justify-content: center;
 
+  width: fit-content;
 
   gap: 32px;
 }
 .listOfCardsItem {
-
-  align-items: center;
+  align-items: start;
   padding-left: 16px;
 
   display: flex;
   width: 640px;
+
+  padding: 16px;
 
   border-radius: 8px;
   background-color: $primary;
@@ -471,13 +534,17 @@ button:hover {
     width: 320px;
     height: 180px;
     border-radius: 8px;
+    @include boxShadowMain();
+  }
+  a {
+    justify-self: flex-end;
   }
 }
 .textInContainer {
   display: flex;
   flex-flow: column;
+  
 }
-
 .statsContainer {
   width: fit-content;
   display: flex;
@@ -490,7 +557,6 @@ button:hover {
 
   border-radius: 16px;
   padding: 16px;
-  padding-bottom: 0;
   background-color: $primary;
 
   margin-bottom: 128px;
@@ -499,8 +565,6 @@ button:hover {
 
   @include boxShadowMain();
 }
-
-
 form {
   display: flex;
   justify-content: center;
@@ -515,4 +579,189 @@ input[type=text] {
   padding: 8px;
 
   font-family: mainFont;
+}
+input[type=number] {
+  border-radius: 16px;
+  font-size: 24px;
+  margin: 0px 0px 32px 0px;
+  border-style: none;
+  padding: 8px;
+
+  font-family: mainFont;
+}
+
+.enterInputText{
+  position: relative;
+}
+
+/*
+  --------------------
+  Responsivity changes.
+  From larger sizes to smaller sizes, so the smallest will overwrite if needed,
+  but also keep changes from the previous
+  ---------------------
+*/
+@media only screen and (max-width: 1400px) {
+  header {
+    justify-content: center;
+    ul {
+      margin-left: 0;
+    }
+    a {
+      font-size: 16px;
+    }
+  }
+  .listOfCardsContainer {
+    justify-content: center;
+    margin: auto;
+  }
+  .alignLeftTextOn3d {
+    text-align: center;
+    margin-left: 0;
+  }
+  .donate{
+    justify-content: flex-start;
+  }
+} 
+@media only screen and (max-width: 992px) {
+    header {
+      position: absolute;
+      flex-flow: column;
+      ul {
+        gap: 8px;
+      }
+  }
+  .logo {
+    margin-top: 64px;
+  }
+  .landingPage {
+    h1 {
+      text-align: center;
+      margin: 200px auto 0 auto;
+      font-size: 48px;
+      width: 300px;
+
+    }
+  }
+  .textBox {
+    margin: auto;
+    width: 260px;
+  }
+  .donateContainer .donateContainerButtons {
+    padding-left: 32px;
+  }
+  .donate {
+    padding-bottom: 48px;
+    
+  }
+  .listOfCardsContainerRow {
+    margin: auto;
+  }
+  .contactContainer {
+    flex-flow: column;
+
+  }
+  .exploreItem {
+    padding: 0;
+    padding-bottom: 16px;
+  }
+  .exploreUI {
+    p {
+      font-size: 16px;
+    }
+    h2 {
+      margin-top: 16px;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    button {
+      font-size: 16px;
+    }
+    a {
+      font-size: 16px;
+    }
+  }
+}
+@media only screen and (max-width: 768px) {
+  .listOfCardsItem {
+    flex-flow: column;
+    width: 340px;
+    text-align: center;
+
+    a {
+      margin: 0 auto 0 auto;
+    }
+    img {
+      margin: 0 auto 0 auto;
+    }
+  }
+  .statsContainer {
+    flex-flow: column;
+  }
+  .donate {
+    flex-flow: column;
+  }
+  .donateGoal {
+    p {
+      //padding: 32px 8px 32px 8px;
+      padding: 0px 8px 0px 8px;
+      width: fit-content;
+    }
+  }
+  .donateContainer {
+    padding-left: 0px;
+    margin: auto;
+    min-height: fit-content;
+    margin-bottom: 32px;
+    
+  }
+  .donateContainerButtons {
+    flex-flow: row;
+    flex-wrap: wrap;
+    padding-left: 0;
+    padding-bottom: 64px;
+    gap: 8px;
+    width: 200px;
+    min-height: 0;
+    height: fit-content;
+    align-items: center;
+
+    margin: auto;
+    margin-top: 16px;
+  }
+  .donateButton {
+    font-size: 16px;
+    padding: 4px;
+    width: 96px;
+    height: 96px;
+
+    text-align: center;
+  }
+  .exploreUI {
+    margin: 0px auto 0px auto;
+    border-radius: 0;
+
+    width: 100%;
+    padding: 8px;
+    p {
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+    h2 {
+      margin-top: 16px;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    button {
+      font-size: 16px;
+    }
+    a {
+      font-size: 16px;
+      position: absolute;
+      margin-left: 240px;
+      
+    }
+  }
 }

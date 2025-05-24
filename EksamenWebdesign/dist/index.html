@@ -1,78 +1,223 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My3D</title>
-    <script type="module" crossorigin src="/assets/index-CeV0b4JK.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C5R3js_u.css">
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/tab_icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Wardens</title>
+
+
+    <script src="/src/aos.js"></script>
+
+    <!-- 
+      Libraries Used:
+      AOS: https://github.com/michalsnik/aos/tree/v2?tab=readme-ov-file 
+      Three.js: https://threejs.org/
+      Vite: https://vite.dev/
+    -->
+    <script type="module" crossorigin src="/assets/index-wdnwAKR-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DcNNyLM0.css">
   </head>
   <body id="bodyID">
-    <!--Courser-->
+    <!--Courser (only used in explore mode)-->
     <div id="costumMouseCourser"></div>
-    <!--Canvas from 3d scene-->
-    <canvas class="render3d" id="renderID"></canvas>
+    <!--Canvas for 3D scene to be rendered, always display as background-->
+    <canvas class="render3d" id="renderID"></canvas>  
     <!--Header-->
-    <header>
-      <h1>Logo</h1>
-      <!--Show Scroll Progress-->
-      <div class="progressBarContainer">
-        <div class="progressBar" id="progressScroll"></div>
-      </div>
+    <header id="headerID">
+      <!--Logo/name-->
+      <a href="" class="logo">Forest Wardens</a>
+      <!--Main Navigation-->
+      <nav>
+        <ul>
+          <li data-aos="zoom-out-up" data-aos-delay="200"><a href="#aboutUsID">About us</a></li>
+          <li data-aos="zoom-out-up" data-aos-delay="300"><a href="#aboutForestsID">About forests</a></li>
+          <li data-aos="zoom-out-up" data-aos-delay="400"><a href="#explorePageID">Interactive forest</a></li>
+          <li data-aos="zoom-out-up" data-aos-delay="500"><a href="#contactID">Contact</a></li>
+        </ul>     
+      </nav> 
+      <!--Donate-->
+      <a href="#donateID">Donate</a>
     </header>
-    <!--UI when exploring 3d-->
-    <div id="exploreUI_ID" class="exploreUI">
-      <button id="exit_exploreForestID">Go back</button>
-    </div>
+    <!--UI when exploring 3d (disable for screen readers)-->
+    <section id="exploreUI_ID" class="exploreUI" aria-hidden="true">
+        <!--Temp text that will be changed in js-->
+        <h1 id="factTitle">tempTitle</h1>
+        <p id="factDesc">temp-description</p>
+    </section>
+    <!--Main Content start-->
+    <main id="mainID">
+      <!--Landing Page-->
+      <section class="landingPage bg snapto" id="landingID">
+        <h1 data-aos="zoom-out-up" data-aos-delay="300"><span class="highlight">Wardens Of</span> The Forest</h1>
+        <p data-aos="zoom-out-up" data-aos-delay="600">Working towards a better future, by protecting our planet and it's diverse and vunerable nature!</p>
+        <p data-aos="zoom-out-up" data-aos-delay="900">As <span style="color: white;">wardens</span> our goal is putting the planet first, will you join us?</p>
 
-
-    <div class="scrollSnapToContainer">
-      <section class="landing_page snapto">
-        <h1>Forest</h1>
-        <p>Forest</p>
+        <!--Svg scroll down-->
+        <a href="#aboutUsID" class="svglink" data-aos="zoom-out-up" data-aos-delay="1100">
+          <object data="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='24px'%20viewBox='0%20-960%20960%20960'%20width='24px'%20fill='%23e3e3e3'%3e%3cpath%20d='m480-340%20180-180-57-56-123%20123-123-123-57%2056%20180%20180Zm0%20260q-83%200-156-31.5T197-197q-54-54-85.5-127T80-480q0-83%2031.5-156T197-763q54-54%20127-85.5T480-880q83%200%20156%2031.5T763-763q54%2054%2085.5%20127T880-480q0%2083-31.5%20156T763-197q-54%2054-127%2085.5T480-80Zm0-80q134%200%20227-93t93-227q0-134-93-227t-227-93q-134%200-227%2093t-93%20227q0%20134%2093%20227t227%2093Zm0-320Z'/%3e%3c/svg%3e" class="arrowDown"></object>
+        </a>  
+        <!---->
       </section>
-      <section class="landing_page snapto">
-        <h1>Forest2</h1>
-        <p>Forest</p>
-        
-      </section>
-      <section class="landing_page snapto">
-        <h1>Forest3</h1>
-        <div class="baseCard">
-          <p>hello</p>
-          <button id="testButtonID">Change day/night</button>
+      <!--About us Page-->
+      <section class="minimal" id="aboutUsID">
+        <h1 class="alignLeftTextOn3d" data-aos="fade-up">What We Do</h1>
+        <div class="textBox" data-aos="zoom-out-up" data-aos-delay="100">
+          <h2 data-aos="zoom-out-up" data-aos-delay="200">Our Mission</h2>
+          <p data-aos="zoom-out-up" data-aos-delay="300">Our core mission is the protection and preservation of forests and trees, all around the globe. As climate change threatens, the forest biomes and its wildlife will continue to be threatened.</p>
+          <p data-aos="zoom-out-up" data-aos-delay="400">We work everyday to make a change, and keep the nature how we know it.</p>
+          <h2 data-aos="zoom-out-up" data-aos-delay="500">How we operate</h2>
+          <p data-aos="zoom-out-up" data-aos-delay="600">We are a non-profit organization, and donations from like-minded people are what keeps us running! The money we get is used for a varied number of initiatives, that is always centered around preserving forests.</p>
+          <p data-aos="zoom-out-up" data-aos-delay="700">Keep reading to learn more about us, and our work!</p>
         </div>
+        <ul class="listOfCardsContainer">
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Replanting trees</h2> 
+              <p>Replanting and safeguarding forests and trees.</p> 
+              <a href="https://onetreeplanted.org/pages/reforestation">Learn about replanting</a>
+            </div>
+            <img src="/assets/forest_1-BGWB5We9.jpg" alt="A fog filled forest." data-aos="flip-left" data-aos-delay="200">
 
-        
+          </li>
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Monitoring and data</h2> 
+              <p>We contribute in gathering important data around the world.</p> 
+              <a href="https://www.globalforestwatch.org/map/?map=eyJjZW50ZXIiOnsibGF0Ijo1MC4zMTE2NTk2Nzk1MzEwNSwibG5nIjo2LjM1NzczODEzMzc2OTk4MX0sInpvb20iOjMuMTExNTI0NzQxODIyMjM3Nn0%3D&menu=eyJkYXRhc2V0Q2F0ZWdvcnkiOiJmb3Jlc3RDaGFuZ2UiLCJtZW51U2VjdGlvbiI6ImRhdGFzZXRzIn0%3D">See how data can be used</a>
+            </div>
+            <img src="/assets/forest_2-B4P-El9z.jpg" alt="A forest from a top down point of veiw." data-aos="flip-left" data-aos-delay="200">
+          </li>
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Sustaiable Farming</h2> 
+              <p>We assist and educate in keeping farming sustailable</p> 
+              <a href="https://www.wur.nl/en/research-results/research-institutes/environmental-research/show-wenr/agriculture-drives-more-than-90-of-tropical-deforestation.htm">About the impact of farming</a>
+            </div>
+            <img src="/assets/farming_1-C0BKrtqS.jpg" alt="Large farm field" data-aos="flip-left" data-aos-delay="200">
+          </li>
+        </ul>
       </section>
-      <section class="landing_page snapto">
-        <h1>Forest4</h1>
-        <p>Forest</p>
-        <img src="/assets/forest_1-BGWB5We9.jpg" alt="">
+      <!--About forests-->
+      <section class="minimal" id="aboutForestsID">
+        <h1 class="alignCenterTextOn3dh1" data-aos="fade-up">What forests do for us</h1>
+        <ul class="listOfCardsContainerRow">
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Clean Air</h2> 
+              <p>Forests are an imporant part in the production of oxygen trough photosynthesis, aswell as cleaning the air from carbon dioxide.</p> 
+              <a href="https://www.nationalforests.org/blog/a-breath-of-fresh-air-how-trees-help-mitigate-climate-change">More about</a>
+            </div>
+            <img src="/assets/leaf-BuOv9FTB.jpg" alt="A rainy leaf" data-aos="flip-right" data-aos-delay="200">
+          </li>
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Wildlife</h2> 
+              <p>Forest not only support the vast diversety of life on the planet, but is an absolute necessity for life as we know it to exist.</p> 
+              <a href="https://www.unep-wcmc.org/en/news/earths-biodiversity-depends-on-the-worlds-forests">More about</a>
+            </div>
+            <img src="/assets/animal-xD-BR6a0.jpg" alt="A deer within the forest, looking at the camera." data-aos="flip-left" data-aos-delay="200">
+          </li>
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Ecosystem</h2> 
+              <p>From water and rain to products we use everyday. The ecosystem of the planet and our daily lives are absolutly depenent on our forests.</p> 
+              <a href="https://wwf.panda.org/discover/our_focus/forests_practice/importance_forests/">More about</a>
+            </div>
+            <img src="/assets/forest_3-Dtd5WdDk.jpg" alt="Close up image of a tree" data-aos="flip-right" data-aos-delay="200">
+          </li>
+          <li class="listOfCardsItem" data-aos="zoom-out-left">
+            <div class="textInContainer">
+              <h2>Recreation</h2> 
+              <p>Forest also makes for the perfekt place we can use to relax and improve ourselves, by using the outdoors!</p> 
+              <a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/forest-recreation">More about</a>
+            </div>
+            <img src="/assets/recriation-DZtKTdpG.jpg" alt="Backpack in a feild, with a forest in the background." data-aos="flip-left" data-aos-delay="200">
+          </li>
+        </ul>
+        <!--Types of forests-->
+        <h2 class="alignCenterTextOn3d" data-aos="fade-up">The types of forests</h2>
+        <ul class="statsContainer" data-aos="zoom-out-up">
+          <li data-aos="zoom-out-up" data-aos-delay="400">
+            <h2>Tropical</h2>
+            <a href="https://www.nicfi.no/about-the-tropical-forests/">Learn More</a>
+          </li>
+          <li data-aos="zoom-out-up" data-aos-delay="200">
+            <h2>Temperate</h2>
+            <a href="https://earthobservatory.nasa.gov/biome/biotemperate.php">Learn More</a>
+          </li>
+          <li data-aos="zoom-out-up" data-aos-delay="400">
+            <h2>Boreal</h2>
+            <a href="https://unece.org/forests/boreal-forests">Learn More</a>
+          </li>
+        </ul>
       </section>
-      <section class="landing_page snapto">
-        <h1>Forest5</h1>
-        <p>Forest</p>
-        <button id="exploreForestID">Explore</button>
+      <!--Donation page-->
+      <section class="donate bg" id="donateID">
+        <div class="donateContainer">
+          <h1 data-aos="fade-in" data-aos-delay="300">Support us</h1>
+          <p data-aos="zoom-out-down">Become a <span style="color: white;" data-aos="zoom-out-up" data-aos-delay="900">warden</span> today</p>
+          <p data-aos="zoom-out-up">To continue our important work, we rely on donations by likeminded people interestend in wardening forests all over the globe.</p>
+          <p data-aos="zoom-out-up">Help us reach our monthly donation goal!</p>
+          <!--Donation progress bar-->
+          <div class="donateGoal" data-aos="zoom-out-up" data-aos-delay="600">
+            <div class="donateGoal2" id="donationProgress"></div>
+            <p data-aos="zoom-out-left" data-aos-delay="900">0$</p>
+            <p data-aos="zoom-out-right" data-aos-delay="900">10 000$</p>
+          </div>
+        </div>
+        <!--Donation amount buttons-->
+        <div class="donateContainerButtons">
+          <button onclick="addToDonation(50);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="600">50$</button>
+          <button onclick="addToDonation(100);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="900">100$</button>
+          <button onclick="addToDonation(250);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="1200">250$</button>
+          <button onclick="addToDonation(500);" class="donateButton" data-aos="zoom-out-right" data-aos-delay="1500">500$</button>
+        </div>
       </section>
-
-
-
-
-
-    
-
-    <!--Link to js-->
-    
-    
-    
-    
-    
-
-
-
-
-
+      <!--Interactive forest page-->
+      <section class="explorePage" id="explorePageID">
+        <div class="exploreItem" data-aos="fade-down" data-aos-delay="100">
+          <h1>How donations are used</h1>
+          <p>Explore how last years budget was used in our interactive 3D forest.</p>
+          <div class="buttonContainerSideways">
+            <button data-aos="zoom-out-right" data-aos-delay="300" id="exploreForestID">Start experience</button>
+          </div>
+        </div>
+        <div class="textBoxAlwaysCenter" data-aos="zoom-out-up" data-aos-delay="100">
+          <h2 data-aos="zoom-out-up" data-aos-delay="200">Transparancy</h2>
+          <p data-aos="zoom-out-up" data-aos-delay="300">For the sake of transparancy, we always list up last years budget and how we spent the money. If you are interested you can explore our 3D forest and find our projects and the cost associated.</p>
+          <p data-aos="zoom-out-up" data-aos-delay="400">If you prefer, you can read our budget here instead with the button below.</p>
+          <button onclick="readBudgetInHTML()" id="buttonBudget">Open budget</button>
+        </div>
+        <div class="textBoxAlwaysCenter" id="readBudget"></div>
+      </section>
+      <!--Contact page-->
+      <section class="contactContainer bg" id="contactID">
+        <div class="contactItem" data-aos="zoom-out-left" data-aos-delay="50">        
+          <p>Any questions?</p>
+          <h1 data-aos="zoom-out-left" data-aos-delay="200">Contact us</h1>
+          <p data-aos="zoom-out-left" data-aos-delay="300">If you need to reach out, we are avalible here. Wheter you have questions, or want to collaberate on a project.</p>
+          <p data-aos="zoom-out-left" data-aos-delay="400">Adress: Forest street 7</p>
+          <p data-aos="zoom-out-left" data-aos-delay="500">Phone: 123 45 678</p>
+          <p data-aos="zoom-out-left" data-aos-delay="600"><a href="mailto:email@email.com">email@email.com</a></p>
+        </div>
+        <div class="contactItem" data-aos="zoom-out-right" data-aos-delay="50">        
+          <p>Want to stay informed?</p>
+          <h1 data-aos="zoom-out-right" data-aos-delay="200">Newsletter</h1>
+          <p data-aos="zoom-out-right" data-aos-delay="300">Keep up to date with our projects and initatives, and stay informed of news about our climate!</p>
+          <form data-aos="zoom-out-right" data-aos-delay="400">
+            <p data-aos="zoom-out-right" data-aos-delay="500">Your Email</p><br>
+            <input type="text" name="enterEmail" placeholder="Your email name.." data-aos="zoom-out-right" data-aos-delay="600"><br>
+          </form>
+        </div>
+      </section>
+      <!---->
+    </main>
+    <footer class="foot bgClip" id="footerID">
+      <a href="#landingID" class="svglink" data-aos="zoom-out-up" data-aos-delay="300">
+        <object data="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='24px'%20viewBox='0%20-960%20960%20960'%20width='24px'%20fill='%23e3e3e3'%3e%3cpath%20d='M280-80v-160H0l154-240H80l280-400%20120%20172%20120-172%20280%20400h-74l154%20240H680v160H520v-160h-80v160H280Zm389-240h145L659-560h67L600-740l-71%20101%20111%20159h-74l103%20160Zm-523%200h428L419-560h67L360-740%20234-560h67L146-320Zm0%200h155-67%20252-67%20155-428Zm523%200H566h74-111%20197-67%20155-145Zm-149%2080h160-160Zm201%200Z'/%3e%3c/svg%3e" class="logoInFooter"></object>
+      </a>  
+      <h1>Forest Wardens ©2025</h1>
+    </footer>
   </body>
 </html>
